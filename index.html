@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For My Pookie ❤️</title>
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, system-ui, sans-serif; background-color: #fff0f3; margin: 0; display: flex; justify-content: center; align-items: center; height: 100svh; padding: 20px; overflow: hidden; touch-action: manipulation; }
+        .container { text-align: center; width: 100%; }
+        .hidden { display: none !important; }
+        #gif-container img { width: 160px; border-radius: 15px; margin-bottom: 10px; }
+        h1 { color: #ff4d6d; font-size: 1.6rem; margin-bottom: 20px; padding: 0 10px; line-height: 1.2; }
+        .buttons { display: flex; justify-content: center; align-items: center; gap: 15px; min-height: 200px; }
+        #yesBtn { background-color: #4cc9f0; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: transform 0.2s; z-index: 100; }
+        #noBtn { background-color: #ff4d6d; color: white; border: none; padding: 12px 24px; border-radius: 50px; font-weight: bold; font-size: 1rem; cursor: pointer; z-index: 10; }
+        .success-img { width: 100%; max-width: 300px; max-height: 50vh; object-fit: contain; border-radius: 15px; border: 5px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" loop><source src="music.mp3" type="audio/mpeg"></audio>
+    <div id="proposal-section" class="container">
+        <div id="gif-container"><img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueG56Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6Z3B6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNwSULPk77/giphy.gif"></div>
+        <h1>Will you be my Valentine? ❤️</h1>
+        <div class="buttons"><button id="yesBtn">Yes</button><button id="noBtn">No</button></div>
+    </div>
+    <div id="success-section" class="container hidden">
+        <h1>Knew you'd say yes! 🥰</h1>
+        <img src="us.jpg" alt="Our Photo" class="success-img">
+        <div style="font-size: 2rem;">🌷💖🌷</div>
+    </div>
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const proposalSection = document.getElementById('proposal-section');
+        const successSection = document.getElementById('success-section');
+        const music = document.getElementById('bgMusic');
+        music.volume = 0.5;
+        let noClickCount = 0;
+        const noTexts = ["Are you sure?", "Pookie please...", "Don't do this! 🥺", "Last chance!", "I'll be very sad...", "Pretty please?", "You're breaking my heart! 💔"];
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            noBtn.innerText = noTexts[Math.min(noClickCount, noTexts.length - 1)];
+            const newScale = 1 + (noClickCount * 0.5);
+            yesBtn.style.transform = `scale(${newScale})`;
+            noClickCount++;
+        });
+        yesBtn.addEventListener('click', () => {
+            music.play().catch(e => console.log("Audio play blocked"));
+            proposalSection.classList.add('hidden');
+            successSection.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
